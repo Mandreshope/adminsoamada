@@ -21,8 +21,6 @@ import { environment} from '../environments/environment';
 import { IonicStorageModule } from '@ionic/storage';
 
 import { AuthService } from './services/user/auth.service';
-import { MemberModalComponent } from './components/member-modal/member-modal.component';
-import { MenuPopoverComponent } from './components/menu-popover/menu-popover.component';
 
 @NgModule({
   declarations: [

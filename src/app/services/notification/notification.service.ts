@@ -59,7 +59,7 @@ export class NotificationService {
   addNotification(data: any) {
     console.log(data)
     return this.request('post', 'notification', 'create', null, {
-      chefDeProjet: data.chefDeProjet,
+      encadreur: data.chefDeProjet,
       membre: data.membre,
       objet: data.objet,
       type: data.type,

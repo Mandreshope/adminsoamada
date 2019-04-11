@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   tokenKey: 'auth-token',
-  // ROOT_URL: 'http://localhost:3000',
-  ROOT_URL: 'https://admin-soamada.herokuapp.com',
+  ROOT_URL: 'http://localhost:3000',
+  // ROOT_URL: 'https://admin-soamada.herokuapp.com',
 
 
 

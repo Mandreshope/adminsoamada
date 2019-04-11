@@ -41,6 +41,7 @@
     "gantt": "^3.0.9",
     "gojs": "^2.0.7",
     "js-pert": "^2.0.1",
+    "ngx-order-pipe": "^2.0.2",
     "ngx-socket-io": "^2.1.1",
     "pert-estimate": "^1.0.0",
     "rxjs": "~6.3.3",

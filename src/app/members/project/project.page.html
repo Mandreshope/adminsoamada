@@ -73,17 +73,36 @@
         </ion-button>
       </ion-buttons>
 
-      <ion-buttons slot="end" *ngIf="!confident">
-        <ion-button color="primary" [routerLink]="['/members/project-edit/', p._id]">
-          <ion-icon name="brush"></ion-icon>
-        </ion-button>
-      </ion-buttons>
+      <ng-container *ngIf="p.chefDeProjet == memberId; else elseTemplate">
+        <ion-buttons slot="end">
+          <ion-button color="primary" [routerLink]="['/members/project-edit/', p._id]">
+            <ion-icon name="create"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <ion-buttons slot="end" *ngIf="!confident">
+          <ion-button color="primary" [routerLink]="['/members/project-edit/', p._id]">
+            <ion-icon name="create"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ng-template>
 
-      <ion-buttons slot="end" *ngIf="!confident">
-        <ion-button color="danger" (click)="removeProject(p._id)">
-          <ion-icon name="trash"></ion-icon>
-        </ion-button>
-      </ion-buttons>
+      <ng-container *ngIf="p.chefDeProjet == memberId; else elseTemplate2">
+        <ion-buttons slot="end">
+          <ion-button color="danger" (click)="removeProject(p._id)">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ng-container>
+      <ng-template #elseTemplate2>
+        <ion-buttons slot="end" *ngIf="!confident">
+          <ion-button color="danger" (click)="removeProject(p._id)">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ng-template>
+
     </ion-item>
 
   </ion-list>

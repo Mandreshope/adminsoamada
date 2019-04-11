@@ -28,7 +28,7 @@ export class HomePage implements OnInit {
   notification: any[] = []
 
   public appPages: { title: string; url: string; icon: string; activePage: string; colSize: number; }[];
-  
+
 
   constructor(public menu: MenuController,
     public authService: AuthService,
@@ -39,10 +39,10 @@ export class HomePage implements OnInit {
     public notificationService: NotificationService,
     public teamService: TeamService,
     public taskService: TaskService,
-    public memberService: MemberService, 
+    public memberService: MemberService,
     public popoverController: PopoverController,
-    private storage: Storage ) {
-    
+    private storage: Storage) {
+
     this.menu.enable(true).then(() => {
       console.log('menu enabled')
     })
@@ -60,21 +60,11 @@ export class HomePage implements OnInit {
     this.loadProjectData()
     this.loadTaskData()
     this.loadTeamData()
-    
-    
+
+
   }
 
   ionViewDidEnter() {
-    // let i = this.appPagesService.initialize()
-    // this.navParams.data = {page: i}
-    
-    // this.storage.get('auth-token').then((val) => {
-    //   if(val){
-    //     this.authService.memberSignIn.push(val)
-    //   }else {
-    //     this.authService.memberSignIn = undefined
-    //   }
-    // });
   }
 
   loadNotificationData() {
@@ -84,7 +74,7 @@ export class HomePage implements OnInit {
         this.notificationService.getNotifications().subscribe((resp: any) => {
           if (resp.success) {
             resp.data.forEach(e => {
-              if(e.membre == id) {
+              if (e.membre == id && e.isOpened == false) {
                 this.notification.push(e)
               }
             });
@@ -93,7 +83,7 @@ export class HomePage implements OnInit {
           }
         }, err => {
           console.log(err.message)
-    
+
         })
       }
     })
@@ -104,7 +94,7 @@ export class HomePage implements OnInit {
   }
 
   async loadProjectData() {
-    
+
     this.projectService.getProjects().subscribe((res: any) => {
       if (res.success) {
         console.log(res.data)
@@ -114,7 +104,7 @@ export class HomePage implements OnInit {
       }
     }, (err => {
       console.log(err)
-    
+
     }))
   }
 
@@ -135,8 +125,8 @@ export class HomePage implements OnInit {
 
   async loadTeamData() {
     this.teamService.getTeams().subscribe((res: any) => {
-        console.log(res.data)
-        this.team = res.data
+      console.log(res.data)
+      this.team = res.data
     }, (err) => {
       console.log(err)
 

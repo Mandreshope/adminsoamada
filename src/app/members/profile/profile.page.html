@@ -144,14 +144,14 @@
 
     <ion-label>
       Date d'inscription
-      <p>{{member?.dateInsertion | datePipe:'dddd, DD MMMM YYYY'}}</p>
+      <p>{{member?.dateInsertion | datePipe: 'fullDate':'dddd, DD MMMM YYYY'}}</p>
     </ion-label>
   </ion-item>
 
   <!-- fab placed to the (vertical) center and end -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button routerLink="/members/profile-edit" routerDirection="forward">
-      <ion-icon name="brush"></ion-icon>
+      <ion-icon name="create"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </ion-content>

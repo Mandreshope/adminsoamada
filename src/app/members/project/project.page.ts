@@ -66,9 +66,12 @@ export class ProjectPage implements OnInit {
               if(resp.data.role == 'simple user') {
                 this.confident = true
                 console.log('you are simple user')
-              }else {
+              }else if(resp.data.role == 'super admin') {
                 this.confident = false
-                console.log('you are chef de projet or admin')
+                console.log('you are super admin')
+              }else if(resp.data.role == 'chef de projet') {
+                this.confident = true
+                console.log('you are chef de projet')
               }
             }
           }
@@ -79,14 +82,15 @@ export class ProjectPage implements OnInit {
     })
   }
 
-  async loadNotificationData() {
+  loadNotificationData() {
     this.storage.get(environment.tokenKey).then(res => {
       if (res) {
         let id = res
+        this.memberId = res
         this.notificationService.getNotifications().subscribe((resp: any) => {
           if (resp.success) {
             resp.data.forEach(e => {
-              if(e.membre == id) {
+              if (e.membre == id && e.isOpened == false) {
                 this.notification.push(e)
               }
             });
@@ -95,7 +99,7 @@ export class ProjectPage implements OnInit {
           }
         }, err => {
           console.log(err.message)
-    
+
         })
       }
     })

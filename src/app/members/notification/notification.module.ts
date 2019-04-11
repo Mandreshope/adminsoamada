@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { NotificationPage } from './notification.page';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { OrderModule } from 'ngx-order-pipe';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
     FormsModule,
     SharedModule,
     IonicModule,
+    OrderModule,
     RouterModule.forChild(routes)
   ],
   declarations: [NotificationPage]

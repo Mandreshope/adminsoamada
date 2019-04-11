@@ -51,4 +51,18 @@ export class NotificationPage implements OnInit {
     })
   }
 
+  openNotif(idNotif) {
+    console.log(idNotif)
+    this.notificationService.updateNotification({isOpened:true},idNotif).subscribe((res: any) => {
+      if (res.success) {
+        console.log(res.success)
+      } else {
+        res.message
+      }
+    }, err => {
+      console.log(err.message)
+
+    })
+  }
+
 }

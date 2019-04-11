@@ -112,7 +112,7 @@ export class TaskAddPage implements OnInit {
     this.taskService.addTask(data).subscribe(res => {
       if (res.success) {
         let notificationData = {
-          chefDeProjet: this.memberId,
+          encadreur: this.memberId,
           membre: res.data.responsable,
           objet: res.data._id,
           type: 'task',

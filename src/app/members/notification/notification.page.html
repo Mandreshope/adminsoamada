@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list *ngFor="let n of notification">
+  <ion-list *ngFor="let n of notification | orderBy: reverse">
     <ion-item *ngIf="n.membre == memberId">
       <ion-buttons slot="start">
         <ion-icon slot="icon-only" name="notifications"></ion-icon>
@@ -16,12 +16,39 @@
 
       <ion-label>
         <p>{{n.message}}</p>
-        <p><ion-icon slot="icon-only" name="time"></ion-icon> {{n.date | datePipe: 'fromNow':'DD MMMM YYYY HH:mm:ss'}}</p>
+        <p>
+          <ion-icon slot="icon-only" name="time"></ion-icon> {{n.date | datePipe: 'fromNow':'DD MMMM YYYY HH:mm:ss'}}
+        </p>
       </ion-label>
       <ion-buttons slot="end">
-        <ion-button color="primary" [routerLink]="['/members/task-details/', n.objet]">
-          <ion-icon name="open"></ion-icon>
-        </ion-button>
+        <ng-container *ngIf="n.type == 'task'; else elseTemplate">
+          <ion-button color="primary" [routerLink]="['/members/task-details/', n.objet]" (click)="openNotif(n._id)">
+            <ion-icon name="open"></ion-icon>
+          </ion-button>
+
+          <ng-container *ngIf="n.isOpened; else elseTemplateIsOpened">
+            <ion-icon color="primary" name="mail-open"></ion-icon>
+          </ng-container>
+          <ng-template #elseTemplateIsOpened>
+            <ion-icon color="primary" name="mail"></ion-icon>
+          </ng-template>
+
+        </ng-container>
+        <ng-template #elseTemplate>
+          <ion-button color="primary" [routerLink]="['/members/project-details/', n.objet]" (click)="openNotif(n._id)">
+            <ion-icon name="open"></ion-icon>
+          </ion-button>
+          
+          <ng-container *ngIf="n.isOpened; else elseTemplateIsOpened">
+            <ion-icon color="primary" name="mail-open"></ion-icon>
+          </ng-container>
+          <ng-template #elseTemplateIsOpened>
+            <ion-icon color="primary" name="mail"></ion-icon>
+          </ng-template>
+          
+        </ng-template>
+
+
       </ion-buttons>
     </ion-item>
   </ion-list>

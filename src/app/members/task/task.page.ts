@@ -83,14 +83,14 @@ export class TaskPage implements OnInit {
     })
   }
 
-  async loadNotificationData() {
+  loadNotificationData() {
     this.storage.get(environment.tokenKey).then(res => {
       if (res) {
         let id = res
         this.notificationService.getNotifications().subscribe((resp: any) => {
           if (resp.success) {
             resp.data.forEach(e => {
-              if(e.membre == id) {
+              if (e.membre == id && e.isOpened == false) {
                 this.notification.push(e)
               }
             });
@@ -99,7 +99,7 @@ export class TaskPage implements OnInit {
           }
         }, err => {
           console.log(err.message)
-    
+
         })
       }
     })

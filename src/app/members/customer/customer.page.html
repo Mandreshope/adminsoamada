@@ -13,9 +13,9 @@
         <ion-badge color="danger" slot="end">{{notification.length}}</ion-badge>
       </ion-button>
 
-      <ion-button (click)="searchButtonClick()">
+      <!-- <ion-button (click)="searchButtonClick()">
         <ion-icon slot="icon-only" name="search"></ion-icon>
-      </ion-button>
+      </ion-button> -->
 
       <ion-button (click)="presentPopover()">
         <ion-icon slot="icon-only" name="more"></ion-icon>
@@ -59,7 +59,7 @@
 
         <ion-buttons *ngIf="!confident" slot="end">
           <ion-button color="primary" [routerLink]="['/members/contract-edit/', co._id]">
-            <ion-icon name="brush"></ion-icon>
+            <ion-icon name="create"></ion-icon>
           </ion-button>
         </ion-buttons>
 
@@ -106,7 +106,7 @@
 
         <ion-buttons slot="end" *ngIf="!confident">
           <ion-button color="primary" [routerLink]="['/members/customer-edit/', c._id]">
-            <ion-icon name="brush"></ion-icon>
+            <ion-icon name="create"></ion-icon>
           </ion-button>
         </ion-buttons>
 

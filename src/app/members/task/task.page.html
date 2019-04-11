@@ -69,14 +69,14 @@
       <ng-container *ngIf="t.responsable == memberId; else elseTemplate">
         <ion-buttons slot="end">
           <ion-button color="primary" [routerLink]="['/members/task-edit/', t._id]">
-            <ion-icon name="brush"></ion-icon>
+            <ion-icon name="create"></ion-icon>
           </ion-button>
         </ion-buttons>
       </ng-container>
       <ng-template #elseTemplate>
         <ion-buttons *ngIf="!confident" slot="end">
           <ion-button color="primary" [routerLink]="['/members/task-edit/', t._id]">
-            <ion-icon name="brush"></ion-icon>
+            <ion-icon name="create"></ion-icon>
           </ion-button>
         </ion-buttons>
       </ng-template>

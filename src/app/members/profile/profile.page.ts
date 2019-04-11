@@ -41,20 +41,25 @@ export class ProfilePage implements OnInit {
     this.loadNotificationData()
   }
 
-  async loadNotificationData() {
-    this.notificationService.getNotifications().subscribe((res: any) => {
-      if (res.success) {
-        res.data.forEach(e => {
-          if(e.membre == this.memberId) {
-            this.notification.push(e)
+  loadNotificationData() {
+    this.storage.get(environment.tokenKey).then(res => {
+      if (res) {
+        let id = res
+        this.notificationService.getNotifications().subscribe((resp: any) => {
+          if (resp.success) {
+            resp.data.forEach(e => {
+              if (e.membre == id && e.isOpened == false) {
+                this.notification.push(e)
+              }
+            });
+          } else {
+            resp.message
           }
-        });
-      } else {
-        res.message
-      }
-    }, err => {
-      console.log(err.message)
+        }, err => {
+          console.log(err.message)
 
+        })
+      }
     })
   }
 

@@ -6,6 +6,9 @@ import { MemberService } from 'src/app/services/member/member.service';
 import { TeamService } from 'src/app/services/team/team.service';
 import { TaskService } from 'src/app/services/task/task.service';
 import { MomentService } from 'src/app/services/moment/moment.service';
+import { NotificationService } from 'src/app/services/notification/notification.service';
+import { environment } from 'src/environments/environment';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-project-edit',
@@ -30,6 +33,8 @@ export class ProjectEditPage implements OnInit {
   member: any
   team: any
   task: any
+  superAdmin: any;
+  idProjet: any;
   
   constructor(private route: ActivatedRoute,
     private navController: NavController,
@@ -37,6 +42,8 @@ export class ProjectEditPage implements OnInit {
     public loading: LoadingController,
     public memberService: MemberService,
     public taskService: TaskService,
+    public storage: Storage,
+    public notificationService: NotificationService,
     public momentService: MomentService,
     public teamService: TeamService) { }
 
@@ -47,6 +54,28 @@ export class ProjectEditPage implements OnInit {
     this.getMembers()
     this.getTeams()
     this.loadProjectData()
+    this.checkUserConfidential()
+  }
+
+  checkUserConfidential() {
+    this.storage.get(environment.tokenKey).then(res => {
+      if (res) {
+        this.memberService.getMember(res).subscribe((resp: any) => {
+          if (resp.success) {
+            if(res == resp.data._id){
+              if(resp.data.role == 'simple user') {
+                console.log('you are simple user')
+              }else {
+                console.log('you are chef de projet or admin')
+                this.superAdmin = res
+              }
+            }
+          }
+        }, (error: any) => {
+          console.log(error.message)
+        })
+      }
+    })
   }
 
   getTasks() {
@@ -102,6 +131,7 @@ export class ProjectEditPage implements OnInit {
 
     this.projectService.getProject(this.projectId).subscribe((res: any) => {
       if (res.success) {
+        this.idProjet = res.data._id
         this.project = res.data
         this.nom = res.data.nom
         this.chefDeProjet = res.data.chefDeProjet
@@ -184,15 +214,29 @@ export class ProjectEditPage implements OnInit {
     this.projectService.updateProject(data, this.projectId).subscribe((res: any) => {
       if (res.success) {
         
-        this.memberService.updateMember(memberData, this.chefDeProjet).subscribe((res) => {
-          if(res.success) {
+        this.memberService.updateMember(memberData, this.chefDeProjet).subscribe((resp) => {
+          if(resp.success) {
             console.log(res.message)
           }else {
             console.log(res.message)
           }
         })
-        this.navController.navigateBack(['members', 'project'])
-        loading.dismiss();
+
+        let notificationData = {
+          encadreur: this.superAdmin,
+          membre: this.chefDeProjet,
+          objet:  this.idProjet,
+          type: 'project',
+          message: 'Vous avez une nouvelle projet à faire',
+          date: this.momentService.dateNow()
+        }
+        this.notificationService.addNotification(notificationData).subscribe((resp2: any) => {
+          if (resp2.success) {
+            console.log(resp2.message)
+            this.navController.navigateBack(['members', 'project'])
+            this.loading.dismiss()
+          }
+        })
       } else {
         res.message
         loading.dismiss();

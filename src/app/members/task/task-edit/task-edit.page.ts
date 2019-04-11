@@ -161,7 +161,7 @@ export class TaskEditPage implements OnInit {
     }
 
     let notificationData = {
-      chefDeProjet: this.memberId,
+      encadreur: this.memberId,
       membre: this.responsable,
       objet: this.idTache,
       type: 'task',

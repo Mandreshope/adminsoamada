@@ -73,7 +73,7 @@
     <p class="mbr">Date de Contact :
       <ion-chip color="danger">
         <ion-label>
-          {{contract?.dateContact | date:'fullDate':'dd MMM yyyy HH:mm:ss'}}
+          {{contract?.dateContact | datePipe:'fullDate':'dddd, DD MMMM YYYY HH:mm:ss'}}
         </ion-label>
       </ion-chip>
     </p>
@@ -93,7 +93,7 @@
     <p class="mbr">Dernier Contact :
       <ion-chip color="danger">
         <ion-label>
-          {{contract?.dernierContact | date:'dd MMM yyyy HH:mm:ss'}}
+          {{contract?.dernierContact | datePipe: 'fullDate':'dddd, DD MMMM YYYY HH:mm:ss'}}
         </ion-label>
       </ion-chip>
     </p>
