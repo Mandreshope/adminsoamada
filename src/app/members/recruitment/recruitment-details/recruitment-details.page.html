@@ -1,0 +1,138 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Détails de recrutement</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button href="/members/recruitment"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding *ngIf="recruitment">
+  <ion-text color="dark">
+    <p class="mbr">Recruteur :
+    </p>
+  </ion-text>
+  <ion-item>
+    <ion-thumbnail slot="start">
+      <img src="{{recruitment?.recruteur.avatar}}">
+    </ion-thumbnail>
+    <ion-label>
+      <h2>{{recruitment?.recruteur.nom}}</h2>
+      <p>{{recruitment?.recruteur.prenom}}</p>
+    </ion-label>
+  </ion-item>
+
+  <ion-card>
+    <ion-item>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12">
+            <div class="avatar">
+              <img src="{{recruitment?.avatar}}" alt="">
+            </div>
+          </ion-col>
+          <ion-col size="12">
+            <div class="info-name">
+              <h4>{{recruitment?.nom}} {{recruitment?.prenom}}</h4>
+              <div class="observant" *ngIf="recruitment?.qualite == 1">
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+              </div>
+
+              <div class="observant" *ngIf="recruitment?.qualite == 2">
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+              </div>
+
+              <div class="observant" *ngIf="recruitment?.qualite == 3">
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+              </div>
+
+              <div class="observant" *ngIf="recruitment?.qualite == 4">
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+              </div>
+
+              <div class="observant" *ngIf="recruitment?.qualite == 5">
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <!-- <ion-icon name="star-half"></ion-icon> -->
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </ion-item>
+
+    <ion-card-content>
+      <ion-list lines="none">
+        <ion-item>
+          <ion-label>
+            Email: {{recruitment?.mail}}
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>
+            Postule pour : {{recruitment?.postulePour}}
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>
+            Curriculum Vitae : {{recruitment?.cv}}
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>
+            Interview : {{recruitment?.interview}}
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>
+            Note : {{recruitment?.note}} %
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>
+            Email: {{recruitment?.mail}}
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>
+            Téléphone: {{recruitment?.tel}}
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>
+            Lien du profil: {{recruitment?.profileRS}}
+          </ion-label>
+        </ion-item>
+
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

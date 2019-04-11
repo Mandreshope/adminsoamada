@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Ajout de nouvel client</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button href="/members/customer"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form id="formgroup" [formGroup]="addCustomerForm">
+    <ion-item>
+      <ion-label position="floating">Nom</ion-label>
+      <ion-input type="text" formControlName="nom"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Prénom</ion-label>
+      <ion-input type="text" formControlName="prenom"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Sexe</ion-label>
+      <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" formControlName="sexe">
+        <ion-select-option value="Homme">Homme</ion-select-option>
+        <ion-select-option value="Femme">Femme</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Téléphone</ion-label>
+      <ion-input type="text" formControlName="tel"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="text" formControlName="mail"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Adresse</ion-label>
+      <ion-input type="text" formControlName="adresse"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Type</ion-label>
+      <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" formControlName="type">
+        <ion-select-option value="Entreprise">Entreprise</ion-select-option>
+        <ion-select-option value="Industriel">Industriel</ion-select-option>
+        <ion-select-option value="Association">Association</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Taille idéal (Ar)</ion-label>
+      <ion-input type="text" formControlName="tailleIdeal"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Probabilité de cloture (%)</ion-label>
+      <ion-input type="text" formControlName="probaCloture"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Montant attendre (Ar)</ion-label>
+      <ion-input type="text" formControlName="montant"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Qualité du client (Echelle 1-5)</ion-label>
+      <ion-input type="text" formControlName="qualite"></ion-input>
+    </ion-item>
+
+    <ion-chip color="danger" *ngIf="submitError">
+      <ion-icon name="alert"></ion-icon>
+      <ion-label>{{submitError}}</ion-label>
+    </ion-chip>
+    <br>
+
+    <ion-button type="button" (click)="addCustomer(addCustomerForm.value)" [disabled]="!addCustomerForm.valid"
+      expand="block" color="primary">Ajouter</ion-button>
+
+  </form>
+</ion-content>

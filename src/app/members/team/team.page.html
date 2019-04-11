@@ -1,0 +1,142 @@
+<ion-header>
+  <ng-container *ngIf="searchbarIsActive; else elseTemplate">
+    <ion-toolbar color="primary">
+      <ion-title>Equipe</ion-title>
+      <ion-buttons slot="start">
+        <ion-menu-button autoHide="false"></ion-menu-button>
+      </ion-buttons>
+      <ion-buttons slot="primary">
+        <ion-button [routerLink]="['/members/notification']">
+          <ion-icon slot="icon-only" name="notifications"></ion-icon>
+          <ion-badge color="danger">{{notification.length}}</ion-badge>
+        </ion-button>
+
+        <ion-button (click)="searchButtonClick()">
+          <ion-icon slot="icon-only" name="search"></ion-icon>
+        </ion-button>
+
+        <ion-button (click)="presentPopover()">
+          <ion-icon slot="icon-only" name="more"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ng-container>
+  <ng-template #elseTemplate>
+    <ion-toolbar>
+
+      <ion-buttons slot="start">
+        <ion-button (click)="backButtonClick()">
+          <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
+      <ion-searchbar animated debounce="50" placeholder="Recherche par nom de l'équipe" animated (ionInput)="getItems($event)">
+      </ion-searchbar>
+
+      <ion-buttons slot="primary">
+        <ion-button slot="end" (click)="presentPopover()">
+          <ion-icon slot="icon-only" name="more"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
+    </ion-toolbar>
+  </ng-template>
+
+  <ion-segment (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="team" [ngClass]="checked">
+      <ion-label>Equipes</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="member">
+      <ion-label>Membres</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+</ion-header>
+
+<ion-content padding>
+  <!-- Custom Refresher Content -->
+  <ion-refresher slot="fixed" (ionRefresh)="refreshTeamData($event)" [disabled]="false">
+    <ion-refresher-content pullingIcon="arrow-round-down" refreshingSpinner="crescent" refreshingText="Chargement...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <!-- Team content -->
+  <div *ngIf="teamContent">
+
+
+    <ion-list *ngFor="let t of team">
+      <ion-item>
+        <ion-buttons slot="start">
+          <ion-icon slot="icon-only" name="people"></ion-icon>
+        </ion-buttons>
+
+        <ion-label>{{t.nom}}</ion-label>
+
+        <ion-buttons slot="end">
+          <ion-button color="primary" [routerLink]="['/members/team-details/', t._id]">
+            <ion-icon name="open"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+
+        <ion-buttons slot="end" *ngIf="!confident">
+          <ion-button color="primary" [routerLink]="['/members/team-edit/', t._id]">
+            <ion-icon name="brush"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+
+        <ion-buttons slot="end" *ngIf="!confident">
+          <ion-button color="danger" (click)="removeTeam(t._id)">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+
+    </ion-list>
+
+    <!-- fab placed to the (vertical) center and end -->
+    <ion-fab [ngClass]="{'fab-hidden': confident}" vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button routerLink="/members/team-add" routerDirection="forward">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+
+  <!-- Member content -->
+  <div *ngIf="memberContent">
+    <ion-list *ngFor="let m of member; let i=index">
+
+      <ion-item>
+
+        <ion-thumbnail slot="start">
+          <img src="{{m.avatar}}">
+        </ion-thumbnail>
+
+        <ion-label>
+          <h2>{{m.nom}}</h2>
+          <h6>{{m.prenom}}</h6>
+          <p>Role : {{m.role}}</p>
+        </ion-label>
+
+        <ion-buttons slot="end">
+          <ion-button color="primary" (click)="presentModal(member[i])">
+            <ion-icon name="open"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+
+        <ion-buttons slot="end" *ngIf="!superUser">
+          <ion-button color="primary" (click)="presentMemberModal(member[i])">
+            <ion-icon name="brush"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+
+        <ion-buttons slot="end" *ngIf="!superUser">
+          <ion-button color="danger" (click)="removeMember(m._id)">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+
+      </ion-item>
+
+    </ion-list>
+  </div>
+</ion-content>

@@ -1,0 +1,136 @@
+<ion-header *ngIf="!isConnected">
+  <ion-toolbar color="primary">
+    <ion-title>Inscription</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding *ngIf="!isConnected">
+
+  <form id="formgroup" [formGroup]="registerForm">
+
+    <ion-item>
+      <ion-label position="floating">Nom</ion-label>
+      <ion-input type="text" formControlName="nom"></ion-input>
+    </ion-item>
+
+    <div class="error-messages">
+      <ng-container *ngFor="let error of error_messages.nom">
+        <div class="error-message"
+          *ngIf="registerForm.get('nom').hasError(error.type)  && (registerForm.get('nom').dirty || registerForm.get('nom').touched)">
+          {{error.message}}
+        </div>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Prénom</ion-label>
+      <ion-input type="text" formControlName="prenom"></ion-input>
+    </ion-item>
+
+    <div class="error-messages">
+      <ng-container *ngFor="let error of error_messages.prenom">
+        <div class="error-message"
+          *ngIf="registerForm.get('prenom').hasError(error.type)  && (registerForm.get('prenom').dirty || registerForm.get('prenom').touched)">
+          {{error.message}}
+        </div>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Sexe</ion-label>
+      <ion-select cancelText="Annuler" okText="Ajouter" formControlName="sexe">
+        <ion-select-option value="Homme">Homme</ion-select-option>
+        <ion-select-option value="Femme">Femme</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Date de naissance</ion-label>
+      <ion-datetime display-format="YYYY-MM-DD" picker-format=" DD MMM YYYY" formControlName="dateDeNaissance">
+      </ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">CIN</ion-label>
+      <ion-input type="text" formControlName="cin"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Père</ion-label>
+      <ion-input type="text" formControlName="pere"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Mère</ion-label>
+      <ion-input type="text" formControlName="mere"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Adresse</ion-label>
+      <ion-input type="text" formControlName="adresse"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Téléphone</ion-label>
+      <ion-input type="text" formControlName="tel"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="email" formControlName="email"></ion-input>
+    </ion-item>
+
+    <div class="error-messages">
+      <ng-container *ngFor="let error of error_messages.email">
+        <div class="error-message"
+          *ngIf="registerForm.get('email').hasError(error.type)  && (registerForm.get('email').dirty || registerForm.get('email').touched)">
+          {{error.message}}
+        </div>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Mot de passe</ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+
+    <div class="error-messages">
+      <ng-container *ngFor="let error of error_messages.password">
+        <div class="error-message"
+          *ngIf="registerForm.get('password').hasError(error.type)  && (registerForm.get('password').dirty || registerForm.get('password').touched)">
+          {{error.message}}
+        </div>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Confirmation mot de passe</ion-label>
+      <ion-input type="password" formControlName="cpassword"></ion-input>
+    </ion-item>
+
+    <div class="error-messages">
+      <ng-container *ngFor="let error of error_messages.cpassword">
+        <div class="error-message"
+          *ngIf="registerForm.get('cpassword').hasError(error.type)  && (registerForm.get('cpassword').dirty || registerForm.get('cpassword').touched)">
+          {{error.message}}
+        </div>
+      </ng-container>
+    </div>
+    <div class="error-messages">
+      <div *ngIf="registerForm.controls.cpassword.errors?.MatchPassword">
+        Le mot de passe ne correspond pas au mot de passe de confirmation
+      </div>
+    </div>
+    <ion-chip color="danger" *ngIf="loginError">
+      <ion-icon name="alert"></ion-icon>
+      <ion-label>{{loginError}}</ion-label>
+    </ion-chip>
+    <br>
+    <ion-button type="button" (click)="signup(registerForm.value)" [disabled]="!registerForm.valid" expand="block"
+      color="primary">S'inscrire</ion-button>
+  </form>
+
+</ion-content>

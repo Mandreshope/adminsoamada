@@ -1,0 +1,26 @@
+.fake-skeleton {
+    width: 60%;
+}
+
+ion-toolbar .tabs {
+  display: flex;
+  justify-content: center;
+  .tab {
+    text-align: center;
+    width: calc(100% / 3);
+    color: #8290e0;
+    &.active {
+      color: #c2cbfc;
+    }
+    ion-icon {
+      font-size: 30px;
+    }
+    .label {
+      //font-size: 10px;
+      margin-top: -2px;
+    }
+  }
+}
+.custom-icon {
+  margin-right: 5px;
+}

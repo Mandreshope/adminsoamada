@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Modification du contrat</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button href="/members/customer"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-item>
+    <ion-label position="floating">Client</ion-label>
+    <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" [(ngModel)]="client">
+      <div *ngFor="let c of customer">
+        <ion-select-option value="{{c._id}}">{{c.nom}} {{c.prenom}}</ion-select-option>
+      </div>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Equipes</ion-label>
+    <ion-select multiple="true" [interfaceOptions]="customPopoverOptions" interface="popover" [(ngModel)]="equipes">
+      <div *ngFor="let t of team">
+        <ion-select-option value="{{t._id}}">{{t.nom}}</ion-select-option>
+      </div>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Date contact</ion-label>
+    <ion-datetime display-format="YYYY-MM-DD HH:mm:ss" picker-format=" DD MMM YYYY HH:mm" [(ngModel)]="dateContact">
+    </ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Statut</ion-label>
+    <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" [(ngModel)]="statut">
+      <ion-select-option value="Negociation">Negociation</ion-select-option>
+      <ion-select-option value="Prospect">Prospect</ion-select-option>
+      <ion-select-option value="Gagné">Gagné</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Dernier contact</ion-label>
+    <ion-datetime display-format="YYYY-MM-DD HH:mm:ss" picker-format=" DD MMM YYYY HH:mm"
+      [(ngModel)]="dernierContact">
+    </ion-datetime>
+  </ion-item>
+
+  <ion-button type="button" (click)="editContract()" expand="block" color="primary">Enregistrer</ion-button>
+</ion-content>

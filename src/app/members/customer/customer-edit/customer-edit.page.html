@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Modification du client</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button href="/members/customer"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item>
+    <ion-label position="floating">Nom</ion-label>
+    <ion-input type="text" [(ngModel)]="nom"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Prénom</ion-label>
+    <ion-input type="text" [(ngModel)]="prenom"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Sexe</ion-label>
+    <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" [(ngModel)]="sexe">
+      <ion-select-option value="Homme">Homme</ion-select-option>
+      <ion-select-option value="Femme">Femme</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Téléphone</ion-label>
+    <ion-input type="text" [(ngModel)]="tel"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Email</ion-label>
+    <ion-input type="text" [(ngModel)]="mail"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Adresse</ion-label>
+    <ion-input type="text" [(ngModel)]="adresse"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Type</ion-label>
+    <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" [(ngModel)]="type">
+      <ion-select-option value="Entreprise">Entreprise</ion-select-option>
+      <ion-select-option value="Industriel">Industriel</ion-select-option>
+      <ion-select-option value="Association">Association</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Taille idéal (Ar)</ion-label>
+    <ion-input type="text" [(ngModel)]="tailleIdeal"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Probabilité de cloture (%)</ion-label>
+    <ion-input type="text" [(ngModel)]="probaCloture"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Montant attendre (Ar)</ion-label>
+    <ion-input type="text" [(ngModel)]="montant"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Qualité du client (Echelle 1-5)</ion-label>
+    <ion-input type="text" [(ngModel)]="qualite"></ion-input>
+  </ion-item>
+
+  <ion-button type="button" (click)="editCustomer()" expand="block" color="primary">Enregistrer</ion-button>
+</ion-content>

@@ -1,0 +1,170 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Modification du membre</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dimissModal()" color="danger">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="checkIdentity">
+    <ion-item>
+      <ion-label position="floating">Nom</ion-label>
+      <ion-input type="text" [(ngModel)]="nom"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Prénom</ion-label>
+      <ion-input type="text" [(ngModel)]="prenom"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Observant</ion-label>
+      <ion-range min="0" max="5" naps="true" color="danger" pin="true" [(ngModel)]="observant">
+        <ion-label slot="start">0</ion-label>
+        <ion-label slot="end">5</ion-label>
+      </ion-range>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Rôle</ion-label>
+      <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" [(ngModel)]="role">
+        <ion-select-option value="super admin">Super Admin</ion-select-option>
+        <ion-select-option value="chef de projet">Chef de projet</ion-select-option>
+        <ion-select-option value="simple user">Simple user</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Sexe</ion-label>
+      <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" [(ngModel)]="sexe">
+        <ion-select-option value="Homme">Homme</ion-select-option>
+        <ion-select-option value="Femme">Femme</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Date de naissance</ion-label>
+      <ion-datetime display-format="YYYY-MM-DD" picker-format=" DD MMM YYYY" [(ngModel)]="dateDeNaissance">
+      </ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">CIN</ion-label>
+      <ion-input type="text" [(ngModel)]="cin"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Père</ion-label>
+      <ion-input type="text" [(ngModel)]="pere"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Mère</ion-label>
+      <ion-input type="text" [(ngModel)]="mere"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Adresse</ion-label>
+      <ion-input type="text" [(ngModel)]="adresse"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Téléphone</ion-label>
+      <ion-input type="text" [(ngModel)]="tel"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Date d'inscription</ion-label>
+      <ion-datetime display-format="YYYY-MM-DD" picker-format=" DD MMM YYYY" [(ngModel)]="dateInsertion">
+      </ion-datetime>
+    </ion-item>
+  </div>
+  <!-- ############## -->
+  <!-- !checkIdentity -->
+  <div *ngIf="!checkIdentity">
+    <ion-item>
+      <ion-label position="floating">Nom</ion-label>
+      <ion-input type="text" [(ngModel)]="nom" disabled></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Prénom</ion-label>
+      <ion-input type="text" [(ngModel)]="prenom" disabled></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Observant</ion-label>
+      <ion-range *ngIf="!checkIdentity" min="0" max="5" naps="true" color="danger" pin="true" [(ngModel)]="observant">
+        <ion-label slot="start">0</ion-label>
+        <ion-label slot="end">5</ion-label>
+      </ion-range>
+      <ion-range *ngIf="checkIdentity" min="0" max="5" naps="true" color="danger" pin="true" [(ngModel)]="observant"
+        disabled>
+        <ion-label slot="start">0</ion-label>
+        <ion-label slot="end">5</ion-label>
+      </ion-range>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Rôle</ion-label>
+      <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" [(ngModel)]="role">
+        <ion-select-option value="super admin">Super Admin</ion-select-option>
+        <ion-select-option value="chef de projet">Chef de projet</ion-select-option>
+        <ion-select-option value="simple user">Simple user</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Sexe</ion-label>
+      <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" [(ngModel)]="sexe" disabled>
+        <ion-select-option value="Homme">Homme</ion-select-option>
+        <ion-select-option value="Femme">Femme</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Date de naissance</ion-label>
+      <ion-datetime display-format="YYYY-MM-DD" picker-format=" DD MMM YYYY" [(ngModel)]="dateDeNaissance" disabled>
+      </ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">CIN</ion-label>
+      <ion-input type="text" [(ngModel)]="cin" disabled></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Père</ion-label>
+      <ion-input type="text" [(ngModel)]="pere" disabled></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Mère</ion-label>
+      <ion-input type="text" [(ngModel)]="mere" disabled></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Adresse</ion-label>
+      <ion-input type="text" [(ngModel)]="adresse" disabled></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Téléphone</ion-label>
+      <ion-input type="text" [(ngModel)]="tel" disabled></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Date d'inscription</ion-label>
+      <ion-datetime display-format="YYYY-MM-DD" picker-format=" DD MMM YYYY" [(ngModel)]="dateInsertion" disabled>
+      </ion-datetime>
+    </ion-item>
+  </div>
+  <br>
+
+  <ion-button type="button" (click)="editMember()" expand="block" color="primary">Enregistrer</ion-button>
+
+</ion-content>

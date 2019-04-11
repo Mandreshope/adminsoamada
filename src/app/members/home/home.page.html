@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Soamada</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+
+    <ion-buttons slot="primary">
+      <ion-button  [routerLink]="['/members/notification']"> 
+        <ion-icon slot="icon-only" name="notifications"></ion-icon>
+        <ion-badge color="danger" slot="end">{{notification.length}}</ion-badge>
+      </ion-button>
+
+      <ion-button (click)="presentPopover()">
+        <ion-icon slot="icon-only" name="more"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="{{p.colSize}}" *ngFor="let p of appPages | slice:-5">
+        <ion-card>
+          <ion-item>
+            <ion-icon name="{{p.icon}}" slot="start" class="custom-icon"></ion-icon>
+            <ion-label>{{p.title}}</ion-label>
+            <ion-badge *ngIf="p?.title == 'Tâche'" color="success">{{task?.length}}</ion-badge>
+            <ion-badge *ngIf="p?.title == 'Projet'" color="primary">{{project?.length}}</ion-badge>
+            <ion-badge *ngIf="p?.title == 'Equipe'" color="danger">{{team?.length}}</ion-badge>
+          </ion-item>
+
+          <ion-card-content>
+            <ion-button expand="block" fill="outline" [routerDirection]="'root'" [routerLink]="[p.url]"
+              (click)="openPage(p)">Ouvrir</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

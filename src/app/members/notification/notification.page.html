@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Notifications</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button href="/members/home"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list *ngFor="let n of notification">
+    <ion-item *ngIf="n.membre == memberId">
+      <ion-buttons slot="start">
+        <ion-icon slot="icon-only" name="notifications"></ion-icon>
+      </ion-buttons>
+
+      <ion-label>
+        <p>{{n.message}}</p>
+        <p><ion-icon slot="icon-only" name="time"></ion-icon> {{n.date | datePipe: 'fromNow':'DD MMMM YYYY HH:mm:ss'}}</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button color="primary" [routerLink]="['/members/task-details/', n.objet]">
+          <ion-icon name="open"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+</ion-content>

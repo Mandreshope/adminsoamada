@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Modifier la tâche</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button href="/members/task/details"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item>
+    <ion-label position="floating">Nom de la tâche</ion-label>
+    <ion-input type="text" [(ngModel)]="nom"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Responsable</ion-label>
+    <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" [(ngModel)]="responsable">
+      <div *ngFor="let m of member">
+        <ion-select-option value="{{m._id}}">{{m.prenom}}</ion-select-option>
+      </div>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Priorité</ion-label>
+    <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" [(ngModel)]="priorite">
+      <ion-select-option value="Haute">Haut</ion-select-option>
+      <ion-select-option value="Moyenne">Moyenne</ion-select-option>
+      <ion-select-option value="Bas">Bas</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Statut</ion-label>
+    <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" [(ngModel)]="statut">
+      <ion-select-option value="Encours">Encours</ion-select-option>
+      <ion-select-option value="Coincé">Coincé</ion-select-option>
+      <ion-select-option value="Fait">Fait</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Projet</ion-label>
+    <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" [(ngModel)]="idProjet">
+      <div *ngFor="let p of project">
+        <ion-select-option value="{{p._id}}">{{p.nom}}</ion-select-option>
+      </div>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Date début</ion-label>
+    <ion-datetime display-format="YYYY-MM-DD HH:mm:ss" picker-format=" DD MMM YYYY HH:mm" [(ngModel)]="dateDebut">
+    </ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Date fin</ion-label>
+    <ion-datetime display-format="YYYY-MM-DD HH:mm:ss" picker-format=" DD MMM YYYY HH:mm" [(ngModel)]="dateFin">
+    </ion-datetime>
+  </ion-item>
+
+  <ion-item *ngIf="completeDate">
+    <ion-label position="floating">Terminer le</ion-label>
+    <ion-datetime display-format="YYYY-MM-DD HH:mm:ss" picker-format=" DD MMM YYYY HH:mm" [(ngModel)]="completeDate">
+    </ion-datetime>
+  </ion-item>
+
+  <!-- Textarea with custom number of rows and cols -->
+  <ion-item>
+    <ion-label>Description</ion-label>
+    <ion-textarea clearOnEdit="true" [(ngModel)]="description"></ion-textarea>
+  </ion-item>
+  <br>
+
+  <ion-button type="button" (click)="editTask()" expand="block" color="primary">Enregistrer</ion-button>
+</ion-content>

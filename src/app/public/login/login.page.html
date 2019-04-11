@@ -1,0 +1,54 @@
+<ion-header *ngIf="!isConnected">
+  <ion-toolbar color="primary">
+    <ion-title>Connexion</ion-title>
+    <ion-buttons slot="start">
+      <ion-button autoHide="false">
+        <ion-icon name="log-in"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding *ngIf="!isConnected">
+  <form id="formgroup" [formGroup]="loginForm">
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="email" formControlName="email"></ion-input>
+    </ion-item>
+
+    <div class="error-messages">
+      <ng-container *ngFor="let error of error_messages.email">
+        <div class="error-message"
+          *ngIf="loginForm.get('email').hasError(error.type)  && (loginForm.get('email').dirty || loginForm.get('email').touched)">
+          {{error.message}}
+        </div>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Mot de passe</ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+
+    <div class="error-messages">
+      <ng-container *ngFor="let error of error_messages.password">
+        <div class="error-message"
+          *ngIf="loginForm.get('password').hasError(error.type)  && (loginForm.get('password').dirty || loginForm.get('password').touched)">
+          {{error.message}}
+        </div>
+      </ng-container>
+    </div>
+    <ion-chip color="danger" *ngIf="loginError">
+      <ion-icon name="alert"></ion-icon>
+      <ion-label>{{loginError}}</ion-label>
+    </ion-chip>
+    <br>
+
+    <ion-button type="button" (click)="login(loginForm.value)" [disabled]="!loginForm.valid" expand="block"
+      color="primary">Connecter</ion-button>
+
+    <ion-button expand="block" color="secondary" routerLink="/register" routerDirection="forward">S'inscrire
+    </ion-button>
+  </form>
+
+</ion-content>

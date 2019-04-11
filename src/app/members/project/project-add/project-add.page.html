@@ -1,0 +1,102 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Ajout de projet</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button href="/members/project"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form id="formgroup" [formGroup]="addProjectForm">
+    <ion-item>
+      <ion-label position="floating">Nom du projet</ion-label>
+      <ion-input type="text" formControlName="nom"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Chef de projet</ion-label>
+      <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" formControlName="chefDeProjet">
+        <div *ngFor="let m of member">
+          <ion-select-option value="{{m._id}}">{{m.prenom}}</ion-select-option>
+        </div>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Equipes</ion-label>
+
+      <ion-select *ngIf="team?.length != 0" multiple="true" [interfaceOptions]="customPopoverOptions" interface="popover"
+        formControlName="equipes">
+        <div *ngFor="let t of team">
+          <ion-select-option value="{{t._id}}">{{t?.nom}}</ion-select-option>
+        </div>
+      </ion-select>
+      <ion-buttons slot="end">
+        <ion-button color="primary" (click)="presentModal('equipes')">
+          <ion-icon name="add"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Tâches</ion-label>
+      <ion-select *ngIf="task != []" multiple="true" [interfaceOptions]="customPopoverOptions" interface="popover" formControlName="taches">
+        <div *ngFor="let ta of task">
+          <ion-select-option value="{{ta._id}}">{{ta?.nom}}</ion-select-option>
+        </div>
+      </ion-select>
+      <ion-buttons slot="end">
+        <ion-button color="primary" (click)="presentModal('taches')">
+          <ion-icon name="add"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Date début</ion-label>
+      <ion-datetime display-format="YYYY-MM-DD HH:mm:ss" picker-format=" DD MMM YYYY HH:mm" formControlName="dateDebut">
+      </ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Date fin</ion-label>
+      <ion-datetime display-format="YYYY-MM-DD HH:mm:ss" picker-format=" DD MMM YYYY HH:mm" formControlName="dateFin">
+      </ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Déscription</ion-label>
+      <ion-textarea formControlName="description"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Developpement</ion-label>
+      <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" formControlName="developpement">
+        <ion-select-option value="Encours">Encours</ion-select-option>
+        <ion-select-option value="Coincé">Coincé</ion-select-option>
+        <ion-select-option value="Fait">Fait</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Statut</ion-label>
+      <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" formControlName="statut">
+        <ion-select-option value="En attente">En attente</ion-select-option>
+        <ion-select-option value="Arrangé">Arrangé</ion-select-option>
+        <ion-select-option value="Ok">Ok</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-chip color="danger" *ngIf="submitError">
+      <ion-icon name="alert"></ion-icon>
+      <ion-label>{{submitError}}</ion-label>
+    </ion-chip>
+    <br>
+
+    <ion-button type="button" (click)="addProject(addProjectForm.value)" [disabled]="!addProjectForm.valid"
+      expand="block" color="primary">Ajouter</ion-button>
+
+  </form>
+</ion-content>

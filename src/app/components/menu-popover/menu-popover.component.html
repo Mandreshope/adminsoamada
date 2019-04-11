@@ -1,0 +1,18 @@
+<ion-content>
+  <ion-list lines="none">
+    <ion-chip class="chips-list-menu" (click)="openPage('members/my-project/')">
+      <ion-icon name="filing" color="primary"></ion-icon>
+      <ion-label>Mes projets</ion-label>
+      <ion-badge *ngIf="project" class="badge-custum" color="danger">{{project.length}}</ion-badge>
+    </ion-chip>
+    <ion-chip class="chips-list-menu" (click)="openPage('members/my-task/')">
+      <ion-icon name="paper" color="primary"></ion-icon>
+      <ion-label>Mes tâches </ion-label>
+      <ion-badge *ngIf="task" class="badge-custum" color="danger">{{task.length}}</ion-badge>
+    </ion-chip>
+    <ion-chip class="chips-list-menu" (click)="logOut()">
+      <ion-icon name="log-out" color="primary"></ion-icon>
+      <ion-label>Se déconnecter</ion-label>
+    </ion-chip>
+  </ion-list>
+</ion-content>

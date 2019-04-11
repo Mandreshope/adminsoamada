@@ -1,0 +1,109 @@
+<ion-header>
+  <ion-toolbar *ngIf="searchbarIsActive" color="primary">
+    <ion-title>Tâche</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+
+    <ion-buttons slot="primary">
+      <ion-button [routerLink]="['/members/notification']">
+        <ion-icon slot="icon-only" name="notifications"></ion-icon>
+        <ion-badge color="danger" slot="end">{{notification.length}}</ion-badge>
+      </ion-button>
+
+      <ion-button (click)="searchButtonClick()">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+
+      <ion-button (click)="presentPopover()">
+        <ion-icon slot="icon-only" name="more"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar *ngIf="!searchbarIsActive">
+    <!-- <ion-buttons slot="start">
+        <ion-button (click)="backButtonClick()">
+          <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+        </ion-button>
+        <ion-searchbar color="primary" placeholder="Recherche" animated (ionInput)="getItems($event)">
+        </ion-searchbar>
+        <ion-button slot="end">
+          <ion-icon slot="icon-only" name="more"></ion-icon>
+        </ion-button>
+      </ion-buttons> -->
+    <ion-buttons slot="start">
+      <ion-button (click)="backButtonClick()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-searchbar animated debounce="50" placeholder="Recherche" animated (ionInput)="getItems($event)">
+    </ion-searchbar>
+    <ion-buttons slot="primary">
+      <ion-button slot="end" (click)="presentPopover()">
+        <ion-icon slot="icon-only" name="more"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-progress-bar *ngIf="progressBar" class="progress-bar" type="indeterminate"></ion-progress-bar>
+<ion-content padding>
+
+  <!-- List of Sliding Items -->
+  <ion-list *ngFor="let t of task">
+    <ion-item>
+      <ion-buttons slot="start">
+        <ion-icon slot="icon-only" name="construct"></ion-icon>
+      </ion-buttons>
+
+      <ion-label>
+        <h4>Projet: {{t.projet.nom}}</h4>
+        <p>Tâche: {{t.nom}}</p>
+      </ion-label>
+
+      <ion-buttons slot="end">
+        <ion-button color="primary" [routerLink]="['/members/task-details/', t._id]">
+          <ion-icon name="open"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
+      <ng-container *ngIf="t.responsable == memberId; else elseTemplate">
+        <ion-buttons slot="end">
+          <ion-button color="primary" [routerLink]="['/members/task-edit/', t._id]">
+            <ion-icon name="brush"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <ion-buttons *ngIf="!confident" slot="end">
+          <ion-button color="primary" [routerLink]="['/members/task-edit/', t._id]">
+            <ion-icon name="brush"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ng-template>
+
+      <ng-container *ngIf="t.responsable == memberId; else elseTemplate2">
+        <ion-buttons slot="end">
+          <ion-button color="danger" (click)="removeTask(t._id)">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ng-container>
+      <ng-template #elseTemplate2>
+        <ion-buttons *ngIf="!confident" slot="end">
+          <ion-button color="danger" (click)="removeTask(t._id)">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ng-template>
+    
+    </ion-item>
+
+  </ion-list>
+
+  <!-- fab placed to the (vertical) center and end -->
+  <ion-fab [ngClass]="{'fab-hidden': confident}" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="/members/task-add" routerDirection="forward">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

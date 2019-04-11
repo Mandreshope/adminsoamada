@@ -1,0 +1,94 @@
+<ion-app>
+  <ion-split-pane>
+    <ion-menu>
+  
+      <div class="box-avatar">
+        <ion-menu-toggle>
+          <ion-item lines="none" *ngFor="let m of authService.memberSignIn">
+
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="12">
+                    <div class="avatar">
+                      <img src="{{m?.avatar}}" alt="">
+                    </div>
+                  </ion-col>
+                  <ion-col size="12">
+                    <div class="info-name">
+                      <h4>{{m?.nom}} {{m?.prenom}}</h4>
+    
+                      <div class="observant" *ngIf="m?.observant == 1">
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star-outline"></ion-icon>
+                        <ion-icon name="star-outline"></ion-icon>
+                        <ion-icon name="star-outline"></ion-icon>
+                        <ion-icon name="star-outline"></ion-icon>
+                      </div>
+    
+                      <div class="observant" *ngIf="m?.observant == 2">
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star-outline"></ion-icon>
+                        <ion-icon name="star-outline"></ion-icon>
+                        <ion-icon name="star-outline"></ion-icon>
+                      </div>
+    
+                      <div class="observant" *ngIf="m?.observant == 3">
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star-outline"></ion-icon>
+                        <ion-icon name="star-outline"></ion-icon>
+                      </div>
+    
+                      <div class="observant" *ngIf="m?.observant == 4">
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star-outline"></ion-icon>
+                      </div>
+    
+                      <div class="observant" *ngIf="m?.observant == 5">
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                      </div>
+    
+                      <!-- <div class="observant" *ngIf="m.observant = 1">
+                        <ion-icon name="star"></ion-icon>
+                      </div>
+    
+                      <div class="observant" *ngIf="m.observant = 2">
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                      </div> -->
+    
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+    
+            </ion-item>
+
+        </ion-menu-toggle>
+      </div>
+  
+      <ion-content>
+        <ion-list lines="none">
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]" id="{{p.activePage}}" (click)="openPage(p)">
+              <ion-icon slot="start" [name]="p.icon"></ion-icon>
+              <ion-label>
+                {{p.title}}
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet main></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

@@ -1,0 +1,115 @@
+// http://ionicframework.com/docs/theming/
+@import '~@ionic/angular/css/core.css';
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
+
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';
+
+#active{
+	color: #03a9f4 !important;
+}
+
+.box-avatar {
+    z-index: 1;
+    box-shadow: 0px -1px 14px 0px #00000094;
+}
+
+
+ion-menu-toggle.hydrated.menu-toggle-hidden {
+    display: block;
+}
+
+.custom-loading {
+    --spinner-color: black;
+    --background: #ffffff00;
+    .loading-wrapper.sc-ion-loading-md {
+        border-radius: 2px;
+        padding: 24px;
+        -webkit-box-shadow:0 0px 0px #ffffff;
+        box-shadow: 0 0px 0px #ffffff;
+    }
+    ion-backdrop.sc-ion-loading-md.backdrop-no-tappable.hydrated {
+        background-color: #fff;
+        opacity: 0.6 !important;
+    }
+}
+p.modif-fab {
+    font-size: 0.9em;
+}
+
+.mbr {
+    border-bottom: 2px solid #00000014;
+    margin: 13px 0 5px 0;
+}
+
+ion-buttons.sc-ion-buttons-md-h.sc-ion-buttons-md-s.hydrated {
+    margin-left: 0 !important;
+}
+
+.sc-ion-modal-md-h {
+    --width: 90% !important;
+    --height: 90% !important;
+}
+
+.sc-ion-modal-ios-h {
+    --width: 90% !important;
+    --height: 90% !important; 
+}
+.avatar {
+    width: 100%;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    img {
+        border-radius: 50%;
+        width: 100px;
+    }
+
+}
+.info-name {
+    text-align: center;
+    h4 {
+        margin: 0;
+    }
+}
+.observant {
+    margin: 5px;
+    color: #ffce00;
+}
+.fab-hidden {
+    right: -74px;
+    -webkit-transition: right 0.5s; /* Safari */
+    transition: right 0.5s;
+}
+
+ion-backdrop.sc-ion-popover-md.hydrated {
+    background: none;
+}
+
+.menu-popover {
+    .popover-content {
+        left: initial !important;
+    }
+    .popover-content.sc-ion-popover-md {
+        // top: 0px !important;
+        // right: 11px !important;
+        // left: 0px;
+        top: 16px !important;
+        right: 6px !important;
+        transform-origin: right top !important;
+        width: 45%;
+    }
+}
+
+ion-chip.chips-list-menu.ion-activatable.hydrated {
+    width: 100%;
+    border-radius: 0;
+    margin: 0;
+    background: transparent;
+}

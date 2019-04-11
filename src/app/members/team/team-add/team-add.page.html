@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Ajout de l'équipe</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button href="/members/team"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <form id="formgroup" [formGroup]="addTeamForm">
+    <ion-item>
+      <ion-label position="floating">Nom de l'équipe</ion-label>
+      <ion-input type="text" formControlName="nom"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Ajouter des membres dans l'équipe</ion-label>
+      <ion-select multiple="true" [interfaceOptions]="customPopoverOptions" interface="popover" formControlName="membres">
+        <div *ngFor="let m of member">
+          <ion-select-option value="{{m._id}}">{{m.prenom}}</ion-select-option>
+        </div>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Description de l'équipe</ion-label>
+      <ion-textarea formControlName="description"></ion-textarea>
+    </ion-item>
+
+    <ion-chip color="danger" *ngIf="loginError">
+      <ion-icon name="alert"></ion-icon>
+      <ion-label>{{submitError}}</ion-label>
+    </ion-chip>
+    <br>
+
+    <ion-button type="button" (click)="addTeam(addTeamForm.value)" [disabled]="!addTeamForm.valid" expand="block"
+      color="primary">Ajouter</ion-button>
+
+  </form>
+</ion-content>

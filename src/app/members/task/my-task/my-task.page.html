@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Mes tâches</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button href="/members/task"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-progress-bar *ngIf="progressBar" class="progress-bar" type="indeterminate"></ion-progress-bar>
+<ion-content padding>
+  
+  <!-- List of Sliding Items -->
+  <ion-list *ngFor="let t of task">
+    <ion-item>
+      <ion-buttons slot="start">
+        <ion-icon slot="icon-only" name="construct"></ion-icon>
+      </ion-buttons>
+
+      <ion-label>
+        <h4>Projet: {{t.projet.nom}}</h4>
+        <p>Tâche: {{t.nom}}</p>
+      </ion-label>
+
+      <ion-buttons slot="end">
+        <ion-button color="primary" [routerLink]="['/members/task-details/', t._id]">
+          <ion-icon name="open"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
+      <ion-buttons slot="end" *ngIf="!confident">
+        <ion-button color="primary" [routerLink]="['/members/task-edit/', t._id]">
+          <ion-icon name="brush"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
+      <ion-buttons slot="end" *ngIf="!confident">
+        <ion-button color="danger" (click)="removeTask(t._id)">
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+
+  </ion-list>
+</ion-content>

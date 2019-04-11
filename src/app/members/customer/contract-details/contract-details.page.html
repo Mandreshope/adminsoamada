@@ -1,0 +1,104 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Détails du contrat</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button href="/members/customer"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding *ngIf="contract">
+
+  <ion-text color="dark">
+    <p class="mbr">RefContrat :
+      <ion-chip color="success">
+        <ion-label>
+          {{contract?.refContrat}}
+        </ion-label>
+      </ion-chip>
+    </p>
+  </ion-text>
+  <br>
+
+  <ion-text color="dark">
+    <p class="mbr">Client :
+    </p>
+  </ion-text>
+
+  <ion-item>
+
+    <ion-thumbnail slot="start">
+      <img *ngIf="contract?.client.avatar" src="{{contract?.client.avatar}}">
+    </ion-thumbnail>
+
+    <ion-label>
+      <h2>{{contract?.client.nom}}</h2>
+      <p>Type : {{contract?.client.type}}</p>
+    </ion-label>
+
+    <ion-buttons slot="end">
+      <ion-button color="primary" (click)="presentModal(contract?.client, null)">
+        <ion-icon name="open"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-item>
+
+  <ion-text color="dark">
+    <p class="mbr">Equipes :
+    </p>
+  </ion-text>
+
+  <ion-list *ngFor="let c of contract?.equipes; let i=index">
+    <ion-item>
+
+      <ion-buttons slot="start">
+        <ion-icon slot="icon-only" name="people"></ion-icon>
+      </ion-buttons>
+
+      <ion-label>
+        <h2>{{c.nom}}</h2>
+      </ion-label>
+
+      <ion-buttons slot="end">
+        <ion-button color="primary" (click)="presentModal(null, contract?.equipes[i])">
+          <ion-icon name="open"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
+    </ion-item>
+  </ion-list>
+
+  <ion-text color="dark">
+    <p class="mbr">Date de Contact :
+      <ion-chip color="danger">
+        <ion-label>
+          {{contract?.dateContact | date:'fullDate':'dd MMM yyyy HH:mm:ss'}}
+        </ion-label>
+      </ion-chip>
+    </p>
+  </ion-text>
+
+  <ion-text color="dark">
+    <p class="mbr">Statut :
+      <ion-chip color="primary">
+        <ion-label>
+          {{contract?.statut}}
+        </ion-label>
+      </ion-chip>
+    </p>
+  </ion-text>
+
+  <ion-text color="dark">
+    <p class="mbr">Dernier Contact :
+      <ion-chip color="danger">
+        <ion-label>
+          {{contract?.dernierContact | date:'dd MMM yyyy HH:mm:ss'}}
+        </ion-label>
+      </ion-chip>
+    </p>
+  </ion-text>
+
+
+
+</ion-content>

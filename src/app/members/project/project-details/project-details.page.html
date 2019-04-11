@@ -1,0 +1,347 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Détails de projet</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button href="/members/project"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding *ngIf="project">
+  <!-- <app-go-js></app-go-js> -->
+  <ion-text color="dark">
+    <p class="mbr">Date de création :
+      <ion-chip color="primary">
+        <ion-label>
+          {{project?.dateCreation | datePipe:'fullDate':'dddd, DD MMMM YYYY HH:mm:ss'}}
+        </ion-label>
+      </ion-chip>
+    </p>
+  </ion-text>
+
+  <ion-card>
+    <ion-progress-bar *ngIf="progressBar" class="progress-bar" type="indeterminate"></ion-progress-bar>
+    <ion-item>
+      <ion-icon name="filing" slot="start"></ion-icon>
+      <ion-label>
+        {{project?.nom}}
+      </ion-label>
+    </ion-item>
+
+    <ion-card-content>
+      <ion-list lines="none">
+
+        <!-- <ion-item>
+          <ion-label>
+            Réseau PERT :
+            <ion-chip color="warning" [routerLink]="['/members/pert-network/', project?._id]">
+              <ion-icon name="open"></ion-icon>
+              <ion-label>
+                Ouvrir
+              </ion-label>
+            </ion-chip>
+          </ion-label>
+        </ion-item> -->
+
+        <ion-item>
+          <ion-label>
+            Statut : {{project?.statut}}
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>
+            Développement : {{project?.developpement}}
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>
+            Nombre des tâches : {{project?.taches.length}}
+          </ion-label>
+        </ion-item>
+        <div padding>
+          <span *ngFor="let ta of project?.taches">
+            <ion-chip *ngIf="ta.statut=='Encours'" color="primary" [routerLink]="['/members/task-details/', ta._id]">
+              <ion-label>
+                {{ta.nom}}
+              </ion-label>
+            </ion-chip>
+            <ion-chip *ngIf="ta.statut=='Fait'" color="success" [routerLink]="['/members/task-details/', ta._id]">
+              <ion-label>
+                {{ta.nom}}
+              </ion-label>
+            </ion-chip>
+            <ion-chip *ngIf="ta.statut=='Coincé'" color="danger" [routerLink]="['/members/task-details/', ta._id]">
+              <ion-label>
+                {{ta.nom}}
+              </ion-label>
+            </ion-chip>
+          </span>
+        </div>
+
+        <ion-item>
+          <ion-label>
+            Progression : {{progression | percent}}
+            <ion-progress-bar color="danger" *ngIf="progression <= 0.3" value="{{progression}}"></ion-progress-bar>
+            <ion-progress-bar color="warning" *ngIf="progression <= 0.5 && progression > 0.3" value="{{progression}}">
+            </ion-progress-bar>
+            <ion-progress-bar *ngIf="progression < 0.8 && progression > 0.5" value="{{progression}}"></ion-progress-bar>
+            <ion-progress-bar color="success" *ngIf="progression >= 0.8" value="{{progression}}"></ion-progress-bar>
+
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          Début :
+          <ion-chip color="primary">
+            <ion-label>
+              {{project?.dateDebut | datePipe: 'fullDate':'DD MMMM YYYY HH:mm:ss'}}
+            </ion-label>
+          </ion-chip>
+        </ion-item>
+
+        <ion-item>
+          Fin :
+          <ion-chip color="danger">
+            <ion-label>
+              {{project?.dateFin | datePipe: 'fullDate':'DD MMMM YYYY HH:mm:ss'}}
+            </ion-label>
+          </ion-chip>
+        </ion-item>
+
+        <ion-item *ngIf="project?.completeDate">
+          Terminé le :
+          <ion-chip color="success">
+            <ion-label>
+              {{project?.completeDate | datePipe: 'fullDate':'DD MMMM YYYY HH:mm:ss'}}
+            </ion-label>
+          </ion-chip>
+        </ion-item>
+
+        <ion-item>
+          Durée :
+          <ion-chip color="primary">
+            <ion-label>
+              {{duration}}
+            </ion-label>
+          </ion-chip>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>
+            Timeline: {{timeline}}
+            <!-- Default Progressbar -->
+            <!-- <ion-progress-bar></ion-progress-bar> -->
+            <!-- Default Progressbar with 50 percent -->
+            <ion-progress-bar color="success" *ngIf="percent <= 0.3" value="{{percent}}"></ion-progress-bar>
+            <ion-progress-bar *ngIf="percent <= 0.5 && percent > 0.3" value="{{percent}}"></ion-progress-bar>
+            <ion-progress-bar color="warning" *ngIf="percent < 0.8 && percent > 0.5" value="{{percent}}">
+            </ion-progress-bar>
+            <ion-progress-bar color="danger" *ngIf="percent >= 0.8" value="{{percent}}"></ion-progress-bar>
+
+            <!-- Colorize Progressbar -->
+            <!-- <ion-progress-bar color="primary" value="0.5"></ion-progress-bar>
+            <ion-progress-bar color="secondary" value="0.5"></ion-progress-bar> -->
+
+            <!-- Other types -->
+            <!-- <ion-progress-bar value="0.25" buffer="0.5"></ion-progress-bar> -->
+            <!-- <ion-progress-bar type="indeterminate"></ion-progress-bar> -->
+            <!-- <ion-progress-bar type="indeterminate" reversed="true"></ion-progress-bar> -->
+          </ion-label>
+        </ion-item>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col size="12">
+              <p class="mbr">Description :</p>
+            </ion-col>
+            <ion-col size="12">
+              {{project?.description}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-text color="dark">
+    <p class="mbr">Chef de Projet :</p>
+  </ion-text>
+
+  <ion-card>
+    <ion-item>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12">
+            <div class="avatar">
+              <img src="{{project?.chefDeProjet?.avatar}}" alt="">
+            </div>
+          </ion-col>
+          <ion-col size="12">
+            <div class="info-name">
+              <h4>{{project?.chefDeProjet?.nom}} {{project?.chefDeProjet?.prenom}}</h4>
+
+              <div class="observant" *ngIf="project?.chefDeProjet?.observant == 1">
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+              </div>
+
+              <div class="observant" *ngIf="project?.chefDeProjet?.observant == 2">
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+              </div>
+
+              <div class="observant" *ngIf="project?.chefDeProjet?.observant == 3">
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+              </div>
+
+              <div class="observant" *ngIf="project?.chefDeProjet?.observant == 4">
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+              </div>
+
+              <div class="observant" *ngIf="project?.chefDeProjet?.observant == 5">
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <!-- <ion-icon name="star-half"></ion-icon> -->
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </ion-item>
+
+    <ion-card-content>
+      <ion-list lines="none">
+        <ion-item>
+          <ion-icon name="mail" slot="start"></ion-icon>
+          <ion-label>
+            Email: {{project?.chefDeProjet?.mail}}
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="call" slot="start"></ion-icon>
+          <ion-label>
+            Téléphone: {{project?.chefDeProjet?.tel}}
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  <div *ngFor="let equipe of project?.equipes; let i=index">
+
+    <ion-text color="dark">
+      <p class="mbr">Equipes : {{project?.equipes[i].nom}}
+        <ion-chip color="primary">
+          <ion-label>
+            {{project?.equipes[i].membres.length}} Personnes
+          </ion-label>
+        </ion-chip>
+      </p>
+    </ion-text>
+
+    <ion-slides pager="true" [options]="slideOpts">
+      <ion-slide *ngFor="let equipeMembres of project?.equipes[i].membres">
+        <ion-card>
+          <ion-item>
+
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12">
+                  <div class="avatar">
+                    <img src="{{equipeMembres?.avatar}}" alt="">
+                  </div>
+                </ion-col>
+                <ion-col size="12">
+                  <div class="info-name">
+                    <h4>{{equipeMembres?.nom}} {{equipeMembres?.prenom}}</h4>
+
+                    <div class="observant" *ngIf="equipeMembres?.observant == 1">
+                      <ion-icon name="star"></ion-icon>
+                      <ion-icon name="star-outline"></ion-icon>
+                      <ion-icon name="star-outline"></ion-icon>
+                      <ion-icon name="star-outline"></ion-icon>
+                      <ion-icon name="star-outline"></ion-icon>
+                    </div>
+
+                    <div class="observant" *ngIf="equipeMembres?.observant == 2">
+                      <ion-icon name="star"></ion-icon>
+                      <ion-icon name="star"></ion-icon>
+                      <ion-icon name="star-outline"></ion-icon>
+                      <ion-icon name="star-outline"></ion-icon>
+                      <ion-icon name="star-outline"></ion-icon>
+                    </div>
+
+                    <div class="observant" *ngIf="equipeMembres?.observant == 3">
+                      <ion-icon name="star"></ion-icon>
+                      <ion-icon name="star"></ion-icon>
+                      <ion-icon name="star"></ion-icon>
+                      <ion-icon name="star-outline"></ion-icon>
+                      <ion-icon name="star-outline"></ion-icon>
+                    </div>
+
+                    <div class="observant" *ngIf="equipeMembres?.observant == 4">
+                      <ion-icon name="star"></ion-icon>
+                      <ion-icon name="star"></ion-icon>
+                      <ion-icon name="star"></ion-icon>
+                      <ion-icon name="star"></ion-icon>
+                      <ion-icon name="star-outline"></ion-icon>
+                    </div>
+
+                    <div class="observant" *ngIf="equipeMembres?.observant == 5">
+                      <ion-icon name="star"></ion-icon>
+                      <ion-icon name="star"></ion-icon>
+                      <ion-icon name="star"></ion-icon>
+                      <ion-icon name="star"></ion-icon>
+                      <ion-icon name="star"></ion-icon>
+                      <!-- <ion-icon name="star-half"></ion-icon> -->
+                    </div>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+
+          </ion-item>
+
+          <ion-card-content>
+            <ion-list lines="none">
+              <ion-item>
+                <ion-icon name="mail" slot="start"></ion-icon>
+                <ion-label>
+                  Email: {{equipeMembres?.mail}}
+                </ion-label>
+              </ion-item>
+
+              <ion-item>
+                <ion-icon name="call" slot="start"></ion-icon>
+                <ion-label>
+                  Téléphone: {{equipeMembres?.tel}}
+                </ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+      </ion-slide>
+    </ion-slides>
+  </div>
+</ion-content>

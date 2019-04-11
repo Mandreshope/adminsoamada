@@ -1,0 +1,227 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Détails du client</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dimissModal()" color="danger">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <!-- customer content -->
+  <ion-grid *ngIf="customer">
+    <ion-row>
+      <ion-col size="12">
+        <div class="avatar">
+          <img src="{{customer?.avatar}}" alt="">
+        </div>
+      </ion-col>
+      <ion-col size="12">
+        <div class="info-name">
+          <h4>{{customer?.nom}}</h4>
+
+          <div class="observant" *ngIf="customer?.qualite == 1">
+            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star-outline"></ion-icon>
+            <ion-icon name="star-outline"></ion-icon>
+            <ion-icon name="star-outline"></ion-icon>
+            <ion-icon name="star-outline"></ion-icon>
+          </div>
+
+          <div class="observant" *ngIf="customer?.qualite == 2">
+            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star-outline"></ion-icon>
+            <ion-icon name="star-outline"></ion-icon>
+            <ion-icon name="star-outline"></ion-icon>
+          </div>
+
+          <div class="observant" *ngIf="customer?.qualite == 3">
+            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star-outline"></ion-icon>
+            <ion-icon name="star-outline"></ion-icon>
+          </div>
+
+          <div class="observant" *ngIf="customer?.qualite == 4">
+            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star-outline"></ion-icon>
+          </div>
+
+          <div class="observant" *ngIf="customer?.qualite == 5">
+            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star"></ion-icon>
+
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-header>
+
+<ion-content padding>
+  <!-- customer content -->
+  <ion-list lines="none" *ngIf="customer">
+
+    <ion-item>
+      <ion-label>
+        Type : {{customer?.type}}
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        Taille idéal : {{customer?.tailleIdeal}}
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        Probabilité de cloture : {{customer?.probaCloture}} %
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        Téléphone : {{customer?.tel}}
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        Email : {{customer?.mail}}
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        Adresse : {{customer?.adresse}}
+      </ion-label>
+    </ion-item>
+
+  </ion-list>
+
+  <!-- team content -->
+  <div *ngIf="team">
+    <ion-text color="dark">
+      <p class="mbr">Date de création :
+        <ion-chip color="primary">
+          <ion-label>
+            {{team?.dateCreation | date:'fullDate':'dd MMM yyyy HH:mm:ss'}}
+          </ion-label>
+        </ion-chip>
+      </p>
+    </ion-text>
+    <ion-card>
+      <ion-item>
+        <ion-icon name="people" slot="start"></ion-icon>
+        <ion-label>L'équipe {{team?.nom}}</ion-label>
+      </ion-item>
+
+      <ion-card-content>
+        {{team?.description}}
+      </ion-card-content>
+    </ion-card>
+
+    <ion-text color="dark">
+      <p class="mbr">Membre de l'équipe :
+        <ion-chip color="primary">
+          <ion-label>
+            {{team?.membres.length}} Personnes
+          </ion-label>
+        </ion-chip>
+      </p>
+    </ion-text>
+
+    <ion-slides>
+      <ion-slide *ngFor="let m of team?.membres">
+        <ion-card>
+          <ion-item>
+
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12">
+                  <div class="avatar">
+                    <img src="{{m?.avatar}}" alt="">
+                  </div>
+                </ion-col>
+                <ion-col size="12">
+                  <div class="info-name">
+                    <h4>{{m?.nom}} {{m?.prenom}}</h4>
+
+                    <div class="observant" *ngIf="m?.observant == 1">
+                      <ion-icon name="star"></ion-icon>
+                    </div>
+
+                    <div class="observant" *ngIf="m?.observant == 2">
+                      <ion-icon name="star"></ion-icon>
+                      <ion-icon name="star"></ion-icon>
+                    </div>
+
+                    <div class="observant" *ngIf="m?.observant == 3">
+                      <ion-icon name="star"></ion-icon>
+                      <ion-icon name="star"></ion-icon>
+                      <ion-icon name="star"></ion-icon>
+                    </div>
+
+                    <div class="observant" *ngIf="m?.observant == 4">
+                      <ion-icon name="star"></ion-icon>
+                      <ion-icon name="star"></ion-icon>
+                      <ion-icon name="star"></ion-icon>
+                      <ion-icon name="star"></ion-icon>
+                    </div>
+
+                    <div class="observant" *ngIf="m?.observant == 5">
+                      <ion-icon name="star"></ion-icon>
+                      <ion-icon name="star"></ion-icon>
+                      <ion-icon name="star"></ion-icon>
+                      <ion-icon name="star"></ion-icon>
+                      <ion-icon name="star"></ion-icon>
+                    </div>
+
+                    <!-- <div class="observant" *ngIf="m.observant = 1">
+                          <ion-icon name="star"></ion-icon>
+                        </div>
+      
+                        <div class="observant" *ngIf="m.observant = 2">
+                          <ion-icon name="star"></ion-icon>
+                          <ion-icon name="star"></ion-icon>
+                        </div> -->
+
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+
+          </ion-item>
+
+          <ion-card-content>
+            <ion-list lines="none">
+              <ion-item>
+                <ion-icon name="mail" slot="start"></ion-icon>
+                <ion-label>
+                  Email: {{m?.mail}}
+                </ion-label>
+              </ion-item>
+
+              <ion-item>
+                <ion-icon name="call" slot="start"></ion-icon>
+                <ion-label>
+                  Téléphone: {{m?.tel}}
+                </ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+</ion-content>

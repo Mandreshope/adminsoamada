@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Modifier l'équipe</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button href="/members/team"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-item>
+    <ion-label position="floating">Nom de l'équipe</ion-label>
+    <ion-input type="text" [(ngModel)]="nom"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Membres</ion-label>
+    <ion-select  multiple="true" [interfaceOptions]="customPopoverOptions" interface="popover" [(ngModel)]="membres">
+      <div *ngFor="let m of member">
+        <ion-select-option value="{{m._id}}">{{m.prenom}}</ion-select-option>
+      </div>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Description de l'équipe</ion-label>
+    <ion-textarea [(ngModel)]="description"></ion-textarea>
+  </ion-item>
+
+  <ion-button type="button" (click)="editTeam()" expand="block" color="primary">Enregister</ion-button>
+
+</ion-content>

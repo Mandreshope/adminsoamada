@@ -1,0 +1,88 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Modification de projet</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button href="/members/project"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item>
+    <ion-label position="floating">Nom du projet</ion-label>
+    <ion-input type="text" [(ngModel)]="nom"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Chef de projet</ion-label>
+    <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" [(ngModel)]="chefDeProjet">
+      <div *ngFor="let m of member">
+        <ion-select-option value="{{m._id}}">{{m.prenom}}</ion-select-option>
+      </div>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Ajouter des Equipes</ion-label>
+    <ion-select multiple="true" [(ngModel)]="equipes">
+      <div *ngFor="let t of team">
+        <ion-select-option value="{{t._id}}">{{t?.nom}}</ion-select-option>
+      </div>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Tâches</ion-label>
+    <ion-select multiple="true" [(ngModel)]="taches">
+      <div *ngFor="let ta of task">
+        <ion-select-option value="{{ta._id}}">{{ta?.nom}}</ion-select-option>
+      </div>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Date début</ion-label>
+    <ion-datetime cancelText="Annuler" doneText="Ajouter" display-format="YYYY-MM-DD HH:mm:ss"
+      picker-format=" DD MMM YYYY HH:mm" [(ngModel)]="dateDebut">
+    </ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Date fin</ion-label>
+    <ion-datetime cancelText="Annuler" doneText="Ajouter" display-format="YYYY-MM-DD HH:mm:ss"
+      picker-format=" DD MMM YYYY HH:mm" [(ngModel)]="dateFin">
+    </ion-datetime>
+  </ion-item>
+
+  <ion-item *ngIf="completeDate">
+    <ion-label>Terminer le</ion-label>
+    <ion-datetime cancelText="Annuler" doneText="Ajouter" display-format="YYYY-MM-DD HH:mm:ss" picker-format=" DD MMM YYYY HH:mm" [(ngModel)]="completeDate">
+    </ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Déscription</ion-label>
+    <ion-textarea type="text" [(ngModel)]="description"></ion-textarea>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Developpement</ion-label>
+    <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" [(ngModel)]="developpement">
+      <ion-select-option value="Encours">Encours</ion-select-option>
+      <ion-select-option value="Coincé">Coincé</ion-select-option>
+      <ion-select-option value="Fait">Fait</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Statut</ion-label>
+    <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" [(ngModel)]="statut">
+      <ion-select-option value="En attente">En attente</ion-select-option>
+      <ion-select-option value="Arrangé">Arrangé</ion-select-option>
+      <ion-select-option value="Ok">Ok</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <br>
+
+  <ion-button type="button" (click)="editProject()" expand="block" color="primary">Enregistrer</ion-button>
+</ion-content>

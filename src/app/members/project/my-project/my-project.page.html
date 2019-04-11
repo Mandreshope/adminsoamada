@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Mes projets</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button href="/members/project"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-progress-bar *ngIf="progressBar" class="progress-bar" type="indeterminate"></ion-progress-bar>
+<ion-content padding>
+  <ion-list *ngFor="let p of project">
+    <ion-item>
+      <ion-buttons slot="start">
+        <ion-icon slot="icon-only" name="filing"></ion-icon>
+      </ion-buttons>
+
+      <ion-label>
+        <h2>{{p.nom}}</h2>
+        <p>Statut : {{p.statut}}</p>
+      </ion-label>
+
+      <ion-buttons slot="end">
+        <ion-button color="primary" [routerLink]="['/members/project-details/', p._id]">
+          <ion-icon name="open"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
+      <ion-buttons slot="end" *ngIf="!confident">
+        <ion-button color="primary" [routerLink]="['/members/project-edit/', p._id]">
+          <ion-icon name="brush"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
+      <ion-buttons slot="end" *ngIf="!confident">
+        <ion-button color="danger" (click)="removeProject(p._id)">
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+
+  </ion-list>
+</ion-content>

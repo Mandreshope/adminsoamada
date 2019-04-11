@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Modification de profile</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button href="/members/profile"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item>
+    <ion-label position="floating">Nom</ion-label>
+    <ion-input type="text" [(ngModel)]="nom"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Prénom</ion-label>
+    <ion-input type="text" [(ngModel)]="prenom"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Sexe</ion-label>
+    <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" [(ngModel)]="sexe">
+      <ion-select-option value="Homme">Homme</ion-select-option>
+      <ion-select-option value="Femme">Femme</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Date de naissance</ion-label>
+    <ion-datetime display-format="YYYY-MM-DD" picker-format=" DD MMM YYYY" [(ngModel)]="dateDeNaissance">
+    </ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">CIN</ion-label>
+    <ion-input type="text" [(ngModel)]="cin"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Père</ion-label>
+    <ion-input type="text" [(ngModel)]="pere"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Mère</ion-label>
+    <ion-input type="text" [(ngModel)]="mere"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Adresse</ion-label>
+    <ion-input type="text" [(ngModel)]="adresse"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Téléphone</ion-label>
+    <ion-input type="text" [(ngModel)]="tel"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Nom d'utilisateur ou email</ion-label>
+    <ion-input type="email" [(ngModel)]="mail"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Mot de passe</ion-label>
+    <ion-input type="password" [(ngModel)]="mdp"></ion-input>
+  </ion-item>
+
+  <div class="error-messages">
+    <div class="error-message" *ngIf="passwordErrorMessages">
+      {{passwordErrorMessages}}
+    </div>
+  </div>
+
+  <ion-item>
+    <ion-label position="floating">Confirmation mot de passe</ion-label>
+    <ion-input type="password" [(ngModel)]="cpassword"></ion-input>
+  </ion-item>
+
+  <div class="error-messages">
+    <div class="error-message" *ngIf="cpasswordErrorMessages">
+      {{cpasswordErrorMessages}}
+    </div>
+  </div>
+  <br>
+
+  <ion-button type="button" (click)="editProfile()" expand="block" color="primary">Enregistrer</ion-button>
+</ion-content>

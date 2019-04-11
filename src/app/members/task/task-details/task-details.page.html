@@ -1,0 +1,191 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Détails de la tâche</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button href="/members/task"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding *ngIf="task">
+
+  <ion-text color="dark">
+    <p class="mbr">Date de création :
+      <ion-chip color="primary">
+        <ion-label>
+          {{task?.dateCreation | datePipe: 'fullDate':'DD MMMM YYYY HH:mm:ss'}}
+        </ion-label>
+      </ion-chip>
+    </p>
+  </ion-text>
+
+  <ion-card>
+    <ion-progress-bar *ngIf="progressBar" class="progress-bar" type="indeterminate"></ion-progress-bar>
+    <ion-item>
+      <ion-icon name="construct" slot="start"></ion-icon>
+      <ion-label>{{task?.nom}}</ion-label>
+    </ion-item>
+
+    <ion-card-content>
+      <ion-list lines="none">
+        <ion-item>
+          <ion-label>
+            Priorité : {{task?.priorite}}
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>
+            Statut : {{task?.statut}}
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          Début :
+          <ion-chip color="primary">
+            <ion-label>
+              {{task?.dateDebut | datePipe:'fullDate':'DD MMMM YYYY HH:mm:ss'}}
+            </ion-label>
+          </ion-chip>
+        </ion-item>
+
+        <ion-item>
+          Fin :
+          <ion-chip color="danger">
+            <ion-label>
+              {{task?.dateFin | datePipe:'fullDate':'DD MMMM YYYY HH:mm:ss'}}
+            </ion-label>
+          </ion-chip>
+        </ion-item>
+
+        <ion-item *ngIf="task?.completeDate">
+          Terminé le :
+          <ion-chip color="success">
+            <ion-label>
+              {{task?.completeDate | datePipe:'fullDate':'DD MMMM YYYY HH:mm:ss'}}
+            </ion-label>
+          </ion-chip>
+        </ion-item>
+
+        <ion-item>
+          Durée :
+          <ion-chip color="primary">
+            <ion-label>
+              {{duration}}
+            </ion-label>
+          </ion-chip>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>
+            Timeline: {{timeline}}
+
+            <ion-progress-bar color="success" *ngIf="percent <= 0.3" value="{{percent}}"></ion-progress-bar>
+            <ion-progress-bar *ngIf="percent <= 0.5 && percent > 0.3" value="{{percent}}"></ion-progress-bar>
+            <ion-progress-bar color="warning" *ngIf="percent < 0.8 && percent > 0.5" value="{{percent}}">
+            </ion-progress-bar>
+            <ion-progress-bar color="danger" *ngIf="percent >= 0.8" value="{{percent}}"></ion-progress-bar>
+
+          </ion-label>
+        </ion-item>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col size="12">
+              <p class="mbr">Description :</p>
+            </ion-col>
+            <ion-col size="12">
+              {{task?.description}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-text color="dark">
+    <p class="mbr">Responsable :</p>
+  </ion-text>
+
+  <ion-card>
+    <ion-item>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12">
+            <div class="avatar">
+              <img src="{{task?.responsableTache?.avatar}}" alt="">
+            </div>
+          </ion-col>
+          <ion-col size="12">
+            <div class="info-name">
+              <h4>{{task?.responsableTache?.nom}} {{task?.responsableTache?.prenom}}</h4>
+
+              <div class="observant" *ngIf="task?.responsableTache?.observant == 1">
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+              </div>
+
+              <div class="observant" *ngIf="task?.responsableTache?.observant == 2">
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+              </div>
+
+              <div class="observant" *ngIf="task?.responsableTache?.observant == 3">
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+              </div>
+
+              <div class="observant" *ngIf="task?.responsableTache?.observant == 4">
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star-outline"></ion-icon>
+              </div>
+
+              <div class="observant" *ngIf="task?.responsableTache?.observant == 5">
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <ion-icon name="star"></ion-icon>
+                <!-- <ion-icon name="star-half"></ion-icon> -->
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </ion-item>
+
+    <ion-card-content>
+      <ion-list lines="none">
+        <ion-item>
+          <ion-icon name="mail" slot="start"></ion-icon>
+          <ion-label>
+            Email: {{task?.responsableTache?.mail}}
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="call" slot="start"></ion-icon>
+          <ion-label>
+            Téléphone: {{task?.responsableTache?.tel}}
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+
+</ion-content>

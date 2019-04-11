@@ -1,0 +1,133 @@
+<ion-header>
+
+  <ion-toolbar color="primary">
+    <ion-title>Client</ion-title>
+
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+
+    <ion-buttons slot="primary">
+      <ion-button [routerLink]="['/members/notification']">
+        <ion-icon slot="icon-only" name="notifications"></ion-icon>
+        <ion-badge color="danger" slot="end">{{notification.length}}</ion-badge>
+      </ion-button>
+
+      <ion-button (click)="searchButtonClick()">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+
+      <ion-button (click)="presentPopover()">
+        <ion-icon slot="icon-only" name="more"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    
+  </ion-toolbar>
+
+  <ion-segment (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="contrat" [ngClass]="checked">
+      <ion-label>Contrats</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="client">
+      <ion-label>Clients</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+</ion-header>
+
+<ion-content padding>
+  <!-- Contrats contents -->
+  <div *ngIf="contractContent">
+    <ion-list *ngFor="let co of contract">
+
+      <ion-item>
+
+        <ion-buttons slot="start">
+          <ion-icon slot="icon-only" name="paper"></ion-icon>
+        </ion-buttons>
+
+        <ion-label>
+          <h2>RefContrat: {{co.refContrat}}</h2>
+          <p>Statut : {{co.statut}}</p>
+        </ion-label>
+
+        <ion-buttons slot="end">
+          <ion-button color="primary" [routerLink]="['/members/contract-details/', co._id]">
+            <ion-icon name="open"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+
+        <ion-buttons *ngIf="!confident" slot="end">
+          <ion-button color="primary" [routerLink]="['/members/contract-edit/', co._id]">
+            <ion-icon name="brush"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+
+        <ion-buttons *ngIf="!confident" slot="end">
+          <ion-button color="danger" (click)="removeContract(co._id)">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+
+      </ion-item>
+
+    </ion-list>
+
+
+    <!-- fab placed to the (vertical) center and end -->
+    <ion-fab [ngClass]="{'fab-hidden': confident}" vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button routerLink="/members/contract-add" routerDirection="forward">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+
+
+  <!-- Clients contents -->
+  <div *ngIf="customerContent">
+    <ion-list *ngFor="let c of customer; let i=index">
+
+      <ion-item>
+
+        <ion-thumbnail slot="start">
+          <img src="{{c.avatar}}">
+        </ion-thumbnail>
+
+        <ion-label>
+          <h2>{{c.nom}}</h2>
+          <p>Type : {{c.type}}</p>
+        </ion-label>
+
+        <ion-buttons slot="end">
+          <ion-button color="primary" (click)="presentModal(customer[i])">
+            <ion-icon name="open"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+
+        <ion-buttons slot="end" *ngIf="!confident">
+          <ion-button color="primary" [routerLink]="['/members/customer-edit/', c._id]">
+            <ion-icon name="brush"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+
+        <ion-buttons slot="end" *ngIf="!confident">
+          <ion-button color="danger" (click)="removeCustomer(c._id)">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+
+      </ion-item>
+
+    </ion-list>
+
+    <!-- fab placed to the (vertical) center and end -->
+    <ion-fab [ngClass]="{'fab-hidden': confident}" vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button routerLink="/members/customer-add" routerDirection="forward">
+        <ion-icon name="person-add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+  </div>
+
+
+</ion-content>

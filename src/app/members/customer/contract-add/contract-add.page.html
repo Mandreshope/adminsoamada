@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Ajout de nouvel contrat</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button href="/members/customer"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <form id="formgroup" [formGroup]="addContractForm">
+
+    <ion-item>
+      <ion-label position="floating">Client</ion-label>
+      <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" formControlName="client">
+        <div *ngFor="let c of customer">
+          <ion-select-option value="{{c._id}}">{{c.nom}} {{c.prenom}}</ion-select-option>
+        </div>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Nom du Projet</ion-label>
+      <ion-input type="text" formControlName="nomProjet"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Equipes</ion-label>
+      <ion-select multiple="true" [interfaceOptions]="customPopoverOptions" interface="popover" formControlName="equipes">
+        <div *ngFor="let t of team">
+          <ion-select-option value="{{t._id}}">{{t.nom}}</ion-select-option>
+        </div>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Date contact</ion-label>
+      <ion-datetime display-format="YYYY-MM-DD HH:mm:ss" picker-format=" DD MMM YYYY HH:mm"
+        formControlName="dateContact">
+      </ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Statut</ion-label>
+      <ion-select [interfaceOptions]="customPopoverOptions" interface="popover" formControlName="statut">
+        <ion-select-option value="Negociation">Negociation</ion-select-option>
+        <ion-select-option value="Prospect">Prospect</ion-select-option>
+        <ion-select-option value="Gagné">Gagné</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Dernier contact</ion-label>
+      <ion-datetime display-format="YYYY-MM-DD HH:mm:ss" picker-format=" DD MMM YYYY HH:mm"
+        formControlName="dernierContact">
+      </ion-datetime>
+    </ion-item>
+
+    <ion-chip color="danger" *ngIf="submitError">
+      <ion-icon name="alert"></ion-icon>
+      <ion-label>{{submitError}}</ion-label>
+    </ion-chip>
+    <br>
+
+    <ion-button type="button" (click)="addContract(addContractForm.value)" [disabled]="!addContractForm.valid"
+      expand="block" color="primary">Ajouter</ion-button>
+
+  </form>
+
+</ion-content>
